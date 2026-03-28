@@ -1,0 +1,16 @@
+/*
+  # Security headers — applied to all routes
+  # Per taketheredpill.io BRIEF.md security requirements
+
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none';
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+  # NOTE: When self-hosting fonts (production requirement per BRIEF.md),
+  # remove the Google Fonts entries from Content-Security-Policy and
+  # update style-src / font-src to 'self' only:
+  #
+  # Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none';

@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── DESIGN TOKENS ─────────────────────────────────────── */
+:root {
+  --red: #D0021B;
+  --red-dim: #8B0012;
+  --red-glow: rgba(208, 2, 27, 0.18);
+  --blue-pill: #1A6FD4;
+  --bg: #0d0d12;
+  --bg2: #13131a;
+  --bg3: #18181f;
+  --white: #F5F5F0;
+  --white-dim: rgba(245, 245, 240, 0.55);
+  --white-faint: rgba(245, 245, 240, 0.12);
+  --mono: 'Space Mono', monospace;
+  --sans: 'Space Grotesk', sans-serif;
+}
+
+/* ─── RESET ──────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--red-dim); border-radius: 2px; }
+
+/* ─── SECTION LABEL HELPER ───────────────────────────────── */
+.section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::before {
+  content: '//';
+  opacity: 0.5;
+}
+
+/* ─── SECTION DIVIDER ────────────────────────────────────── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--white-faint), transparent);
+  margin: 0 48px;
+}

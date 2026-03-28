@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TAKETHEREDPILL.IO — Mockup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #D0021B;
+      --red-dim: #8B0012;
+      --red-glow: rgba(208, 2, 27, 0.18);
+      --blue-pill: #1A6FD4;
+      --bg: #0d0d12;
+      --bg2: #13131a;
+      --bg3: #18181f;
+      --white: #F5F5F0;
+      --white-dim: rgba(245,245,240,0.55);
+      --white-faint: rgba(245,245,240,0.12);
+      --mono: 'Space Mono', monospace;
+      --sans: 'Space Grotesk', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── CANVAS MATRIX BACKGROUND ── */
+    #matrix-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: linear-gradient(to bottom, rgba(6,6,8,0.98), rgba(6,6,8,0));
+      backdrop-filter: blur(2px);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .pill-icon {
+      width: 32px; height: 32px;
+      position: relative;
+      display: flex; align-items: center;
+    }
+
+    .pill-icon svg { width: 32px; height: 32px; }
+
+    .nav-wordmark {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .nav-wordmark span { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red) !important;
+      border: 1px solid var(--red-dim);
+      padding: 9px 20px;
+      border-radius: 2px;
+      transition: all 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--red-glow) !important;
+      border-color: var(--red) !important;
+      color: #fff !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 48px;
+      padding-top: 120px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .hero-headline {
+      font-size: clamp(56px, 8vw, 108px);
+      font-weight: 700;
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      max-width: 900px;
+      margin-bottom: 40px;
+    }
+
+    .hero-headline .line-red { color: var(--red); }
+    .hero-headline .line-blue {
+      color: var(--blue-pill);
+      text-shadow: 0 0 40px rgba(26, 111, 212, 0.4), 0 0 80px rgba(26, 111, 212, 0.15);
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--white-dim);
+      max-width: 520px;
+      line-height: 1.65;
+      margin-bottom: 52px;
+    }
+
+    .hero-sub strong { color: var(--white); font-weight: 500; }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--red);
+      color: #fff;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: #e8021f; transform: translateY(-1px); }
+
+    .btn-ghost {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      padding: 16px 36px;
+      border: 1px solid var(--white-faint);
+      border-radius: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn-ghost:hover { color: var(--white); border-color: rgba(245,245,240,0.35); }
+
+    .hero-stat-row {
+      position: absolute;
+      bottom: 52px;
+      left: 48px;
+      right: 48px;
+      display: flex;
+      gap: 48px;
+      border-top: 1px solid var(--white-faint);
+      padding-top: 28px;
+    }
+
+    .hero-stat { display: flex; flex-direction: column; gap: 4px; }
+
+    .hero-stat-num {
+      font-family: var(--mono);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .hero-stat-num span { color: var(--red); }
+
+    .hero-stat-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--white-faint), transparent);
+      margin: 0 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── MANIFESTO ── */
+    .manifesto {
+      position: relative;
+      z-index: 1;
+      padding: 120px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .manifesto-left {
+      position: sticky;
+      top: 120px;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::before {
+      content: '//';
+      opacity: 0.5;
+    }
+
+    .manifesto-title {
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      margin-bottom: 24px;
+    }
+
+    .manifesto-title em {
+      font-style: normal;
+      color: var(--red);
+    }
+
+    .manifesto-desc {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--white-dim);
+      line-height: 1.7;
+    }
+
+    .manifesto-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .manifesto-point {
+      background: var(--bg2);
+      border: 1px solid var(--white-faint);
+      padding: 28px 32px;
+      border-radius: 2px;
+      margin-bottom: 1px;
+      transition: all 0.25s;
+      cursor: default;
+    }
+
+    .manifesto-point:hover {
+      background: var(--bg3);
+      border-color: rgba(208,2,27,0.3);
+      transform: translateX(4px);
+    }
+
+    .manifesto-point-num {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+
+    .manifesto-point-text {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .manifesto-point-sub {
+      font-size: 13px;
+      color: var(--white-dim);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── INTEL / BLOG ── */
+    .intel {
+      position: relative;
+      z-index: 1;
+      padding: 100px 48px;
+      background: var(--bg2);
+    }
+
+    .intel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 52px;
+    }
+
+    .intel-title { font-size: 42px; font-weight: 700; letter-spacing: -0.025em; }
+
+    .intel-link {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      text-decoration: none;
+      border-bottom: 1px solid var(--red-dim);
+      padding-bottom: 2px;
+    }
+
+    .intel-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 1px;
+      background: var(--white-faint);
+    }
+
+    .intel-card {
+      background: var(--bg2);
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: background 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .intel-card:hover { background: var(--bg3); }
+
+    .intel-card.featured { grid-row: span 1; }
+
+    .intel-card-tag {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .intel-card-title {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .intel-card.featured .intel-card-title {
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .intel-card-excerpt {
+      font-size: 14px;
+      color: var(--white-dim);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .intel-card-meta {
+      margin-top: auto;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: rgba(245,245,240,0.3);
+      display: flex;
+      gap: 16px;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      position: relative;
+      z-index: 1;
+      padding: 120px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    .about-image-block {
+      position: relative;
+    }
+
+    .about-image-frame {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: var(--bg3);
+      border: 1px solid var(--white-faint);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-image-frame::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--red-glow), transparent 60%);
+    }
+
+    .about-image-placeholder {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--white-dim);
+      text-transform: uppercase;
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: -16px;
+      right: -16px;
+      background: var(--red);
+      padding: 16px 20px;
+      border-radius: 2px;
+    }
+
+    .about-badge-text {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 1.5;
+    }
+
+    .about-content { display: flex; flex-direction: column; gap: 24px; }
+
+    .about-title {
+      font-size: clamp(38px, 4vw, 54px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+    }
+
+    .about-title em { font-style: normal; color: var(--red); }
+
+    .about-body {
+      font-size: 16px;
+      color: var(--white-dim);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    .about-body strong { color: var(--white); font-weight: 500; }
+
+    .about-creds {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      margin-top: 8px;
+    }
+
+    .about-cred {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--white-faint);
+    }
+
+    .about-cred-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    .about-cred-text {
+      font-size: 14px;
+      color: var(--white-dim);
+    }
+
+    .about-cred-text strong { color: var(--white); font-weight: 500; }
+
+    /* ── NEWSLETTER CTA ── */
+    .newsletter {
+      position: relative;
+      z-index: 1;
+      padding: 100px 48px;
+      background: var(--bg);
+      border-top: 1px solid var(--white-faint);
+      border-bottom: 1px solid var(--white-faint);
+      text-align: center;
+    }
+
+    .newsletter-eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+    }
+
+    .newsletter-title {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      max-width: 700px;
+      margin: 0 auto 20px;
+    }
+
+    .newsletter-sub {
+      font-size: 16px;
+      color: var(--white-dim);
+      font-weight: 300;
+      max-width: 480px;
+      margin: 0 auto 48px;
+      line-height: 1.65;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      background: var(--bg2);
+      border: 1px solid var(--white-faint);
+      border-right: none;
+      color: var(--white);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      padding: 16px 20px;
+      outline: none;
+      border-radius: 2px 0 0 2px;
+      transition: border-color 0.2s;
+    }
+
+    .newsletter-input:focus { border-color: var(--red-dim); }
+    .newsletter-input::placeholder { color: rgba(245,245,240,0.25); }
+
+    .newsletter-btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      padding: 16px 28px;
+      cursor: pointer;
+      border-radius: 0 2px 2px 0;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .newsletter-btn:hover { background: #e8021f; }
+
+    .newsletter-disclaimer {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: rgba(245,245,240,0.22);
+      margin-top: 16px;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 52px 48px 40px;
+      background: var(--bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .footer-left { display: flex; flex-direction: column; gap: 12px; }
+
+    .footer-logo {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .footer-logo span { color: var(--red); }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--white-dim);
+      max-width: 280px;
+      line-height: 1.55;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: rgba(245,245,240,0.2);
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    /* ── MOCKUP BANNER ── */
+    .mockup-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: #D0021B;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .mockup-banner span {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .mockup-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--red-dim); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<canvas id="matrix-canvas"></canvas>
+
+<!-- MOCKUP BANNER -->
+<div class="mockup-banner">
+  <div class="mockup-dot"></div>
+  <span>Visual Mockup — taketheredpill.io — Pending Tom's Approval</span>
+  <div class="mockup-dot"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="pill-icon">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="12" width="26" height="8" rx="4" fill="none" stroke="#D0021B" stroke-width="1.5"/>
+        <rect x="3" y="12" width="13" height="8" rx="4" fill="#D0021B"/>
+        <line x1="16" y1="12" x2="16" y2="20" stroke="#060608" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <span class="nav-wordmark">TAKE<span>THE</span>REDPILL.IO</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Intel</a></li>
+    <li><a href="#">The Mission</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#" class="nav-cta">Take the Red Pill →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">The Daily Red Pill Wake Up — Weekly Dispatch</div>
+  <h1 class="hero-headline">
+    Most people<br/>
+    are still<br/>
+    <span class="line-blue">asleep.</span>
+  </h1>
+  <p class="hero-sub">
+    <strong>Unfiltered intelligence</strong> on military medicine, defense technology, and the systems
+    that shape national health — from someone still inside the machine.
+  </p>
+  <div class="hero-actions">
+    <a href="#" class="btn-primary">Subscribe to The Daily Red Pill Wake Up</a>
+    <a href="#" class="btn-ghost">Read the Manifesto</a>
+  </div>
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <span class="hero-stat-num">20<span>+</span></span>
+      <span class="hero-stat-label">Years inside the machine</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">100<span>%</span></span>
+      <span class="hero-stat-label">Unfiltered. No sponsors.</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">Daily<span>+</span></span>
+      <span class="hero-stat-label">Post daily, blog every Monday</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">0</span>
+      <span class="hero-stat-label">Blue pills served here</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="mission">
+  <div class="manifesto-left">
+    <div class="section-label">The Mission</div>
+    <h2 class="manifesto-title">This isn't a<br/><em>newsletter.</em><br/>It's a wakeup call.</h2>
+    <p class="manifesto-desc">
+      The institutions managing military medicine, defense technology, and national health
+      have been running the same playbook for decades. The data exists. The tools exist.
+      The only thing missing is the will to actually use them.
+      <br/><br/>
+      Take the Red Pill is the intelligence brief for the people who are done waiting.
+    </p>
+  </div>
+  <div class="manifesto-right">
+    <div class="manifesto-point">
+      <div class="manifesto-point-num">// 01</div>
+      <div class="manifesto-point-text">The data already exists. Nobody's using it.</div>
+      <div class="manifesto-point-sub">BATDOK. BATTAK. Palantir AIP. Twenty years of operational medical data sitting locked in black-box systems while operators make life-and-death decisions blind.</div>
+    </div>
+    <div class="manifesto-point">
+      <div class="manifesto-point-num">// 02</div>
+      <div class="manifesto-point-text">AI doesn't belong in military medicine. It's already there.</div>
+      <div class="manifesto-point-sub">The question isn't whether it's coming. It's whether your institution leads that change — or gets dragged into it.</div>
+    </div>
+    <div class="manifesto-point">
+      <div class="manifesto-point-num">// 03</div>
+      <div class="manifesto-point-text">The Blue Pill is comfortable. It's also killing people.</div>
+      <div class="manifesto-point-sub">When systems fail, it's not an accident — it's a choice. We name the choices, track the outcomes, and refuse to pretend otherwise.</div>
+    </div>
+    <div class="manifesto-point">
+      <div class="manifesto-point-num">// 04</div>
+      <div class="manifesto-point-text">The truth is the only thing that actually helps.</div>
+      <div class="manifesto-point-sub">No advertising. No sponsors. No institutional affiliations. Just an insider with 20 years of access, a data background, and no patience left for bullshit.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- INTEL / BLOG -->
+<section class="intel" id="intel">
+  <div class="intel-header">
+    <div>
+      <div class="section-label">The Daily Red Pill Wake Up</div>
+      <h2 class="intel-title">Latest Dispatches</h2>
+    </div>
+    <a href="#" class="intel-link">View all →</a>
+  </div>
+  <div class="intel-grid">
+    <a href="#" class="intel-card featured">
+      <div class="intel-card-tag">// Featured — The Broken System</div>
+      <div class="intel-card-title">The Pentagon Just Made Palantir Its Official AI Backbone. Here's What the Coverage Is Missing.</div>
+      <div class="intel-card-excerpt">Maven is a Program of Record now. Everyone's covering the weapons-targeting angle. Nobody's talking about what this means for operational medical data — and the lives that hang on it. Let's fix that.</div>
+      <div class="intel-card-meta">
+        <span>Mar 25, 2026</span>
+        <span>// 8 min read</span>
+      </div>
+    </a>
+    <a href="#" class="intel-card">
+      <div class="intel-card-tag">// Operator's Edge</div>
+      <div class="intel-card-title">What BATDOK Actually Does (And Why Nobody Explains It Right)</div>
+      <div class="intel-card-excerpt">An insider breakdown of the Army's operational medical data platform — what it captures, what it misses, and what happens when commanders actually use it.</div>
+      <div class="intel-card-meta">
+        <span>Mar 18, 2026</span>
+        <span>// 6 min read</span>
+      </div>
+    </a>
+    <a href="#" class="intel-card">
+      <div class="intel-card-tag">// Transition Blueprint</div>
+      <div class="intel-card-title">Building a Business in Uniform: Month One</div>
+      <div class="intel-card-excerpt">What it looks like to start an entrepreneurial journey while still on active duty — and why waiting until retirement is the wrong play.</div>
+      <div class="intel-card-meta">
+        <span>Mar 11, 2026</span>
+        <span>// 5 min read</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image-block">
+    <div class="about-image-frame">
+      <span class="about-image-placeholder">[ Tom Hansen — Photo ]</span>
+    </div>
+    <div class="about-badge">
+      <div class="about-badge-text">US ARMY<br/>MOS 70D<br/>ACTIVE DUTY</div>
+    </div>
+  </div>
+  <div class="about-content">
+    <div class="section-label">About</div>
+    <h2 class="about-title">I'm still<br/>inside the<br/><em>machine.</em></h2>
+    <p class="about-body">
+      <strong>Tom Hansen.</strong> Active-duty US Army officer. MOS 70D Health Services Informatician.
+      The Army's Palantir SME in the medical domain. 20+ years of operational experience at the
+      intersection of military medicine, data architecture, and AI integration.<br/><br/>
+      I've watched institutions sit on data that could save lives. I've deployed the technology that
+      works. And I've spent two decades learning exactly why the gap between "possible" and "done"
+      is almost always a choice — not a limitation.
+    </p>
+    <div class="about-creds">
+      <div class="about-cred">
+        <div class="about-cred-dot"></div>
+        <div class="about-cred-text"><strong>Army SME</strong> — Palantir AIP/Foundry, Health Domain</div>
+      </div>
+      <div class="about-cred">
+        <div class="about-cred-dot"></div>
+        <div class="about-cred-text"><strong>Technical PM</strong> — Google Health (AUG 2026)</div>
+      </div>
+      <div class="about-cred">
+        <div class="about-cred-dot"></div>
+        <div class="about-cred-text"><strong>Expertise</strong> — BATDOK, BATTAK, Class VIII/Blood Supply Data</div>
+      </div>
+      <div class="about-cred">
+        <div class="about-cred-dot"></div>
+        <div class="about-cred-text"><strong>Mission</strong> — Building toward a post-Army business before the exit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER CTA -->
+<section class="newsletter">
+  <div class="newsletter-eyebrow">// The Daily Red Pill Wake Up — Daily Post + Weekly Blog</div>
+  <h2 class="newsletter-title">Stop consuming the narrative. Start seeing clearly.</h2>
+  <p class="newsletter-sub">One dispatch per week. No fluff. No sponsors. Unfiltered intelligence on military medicine, defense tech, and the systems that shape national health.</p>
+  <div class="newsletter-form">
+    <input type="email" class="newsletter-input" placeholder="your@email.com" />
+    <button class="newsletter-btn">Take the Red Pill</button>
+  </div>
+  <div class="newsletter-disclaimer">No spam. Unsubscribe anytime. Zero blue pills guaranteed.</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo">TAKE<span>THE</span>REDPILL.IO</div>
+    <div class="footer-tagline">Unfiltered intelligence for the people who are done being told what to think.</div>
+    <div class="footer-copy">© 2026 Tom Hansen. All rights reserved.</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#">Intel</a></li>
+    <li><a href="#">The Mission</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Subscribe</a></li>
+    <li><a href="#">Privacy</a></li>
+  </ul>
+</footer>
+
+<!-- MATRIX RAIN EFFECT -->
+<script>
+  const canvas = document.getElementById('matrix-canvas');
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const fontSize = 13;
+  let columns = Math.floor(canvas.width / fontSize);
+  let drops = Array(columns).fill(1);
+
+  function draw() {
+    ctx.fillStyle = 'rgba(6, 6, 8, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#D0021B';
+    ctx.font = fontSize + 'px Space Mono, monospace';
+
+    for (let i = 0; i < drops.length; i++) {
+      const char = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    }
+  }
+
+  setInterval(draw, 50);
+</script>
+
+</body>
+</html>
