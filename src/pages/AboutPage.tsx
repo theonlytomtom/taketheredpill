@@ -61,20 +61,11 @@ export default function AboutPage() {
                   background: 'linear-gradient(135deg, var(--red-glow), transparent 60%)',
                 }}
               />
-              {/* TODO: Replace with <img src="/assets/tom-hansen.jpg" alt="Tom Hansen" /> */}
-              <span
-                style={{
-                  fontFamily: 'var(--mono)',
-                  fontSize: '11px',
-                  letterSpacing: '0.14em',
-                  color: 'var(--white-dim)',
-                  textTransform: 'uppercase',
-                  position: 'relative',
-                  zIndex: 1,
-                }}
-              >
-                [ Tom Hansen ]
-              </span>
+              <img
+                src="/tom-hansen.jpg"
+                alt="Tom Hansen"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', position: 'relative', zIndex: 1 }}
+              />
             </div>
             <div
               style={{
