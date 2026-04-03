@@ -32,13 +32,13 @@ export default function AboutPage() {
           style={{
             padding: '80px 48px 100px',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '100px',
+            gridTemplateColumns: '0.55fr 1fr',
+            gap: '80px',
             alignItems: 'center',
           }}
         >
           {/* Photo block */}
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative', maxWidth: '320px', margin: '0 auto' }}>
             <div
               style={{
                 width: '100%',

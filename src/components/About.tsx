@@ -17,12 +17,12 @@ export default function About() {
       position: 'relative', zIndex: 1,
       padding: isMobile ? '60px 20px' : '120px 48px',
       display: 'grid',
-      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-      gap: isMobile ? '48px' : '100px',
+      gridTemplateColumns: isMobile ? '1fr' : '0.55fr 1fr',
+      gap: isMobile ? '48px' : '80px',
       alignItems: 'center',
     }}>
       {/* Photo block */}
-      <div style={{ position: 'relative', maxWidth: isMobile ? '280px' : '100%', margin: isMobile ? '0 auto' : '0' }}>
+      <div style={{ position: 'relative', maxWidth: isMobile ? '200px' : '320px', margin: '0 auto' }}>
         <div style={{
           width: '100%', aspectRatio: '4/5',
           background: 'var(--bg3)', border: '1px solid var(--white-faint)',
