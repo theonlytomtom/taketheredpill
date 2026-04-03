@@ -4,6 +4,8 @@ import IntelPage from '@/pages/Intel'
 import AboutPage from '@/pages/AboutPage'
 import SubscribePage from '@/pages/Subscribe'
 import ProductsPage from '@/pages/Products'
+import SeriesIndexPage from '@/pages/SeriesIndexPage'
+import BlogPostPage from '@/pages/BlogPostPage'
 import NotFound from '@/pages/NotFound'
 
 export default function App() {
@@ -12,6 +14,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/intel" element={<IntelPage />} />
+        <Route path="/intel/series/:seriesSlug" element={<SeriesIndexPage />} />
+        <Route path="/intel/series/:seriesSlug/:postSlug" element={<BlogPostPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/subscribe" element={<SubscribePage />} />
         <Route path="/products" element={<ProductsPage />} />

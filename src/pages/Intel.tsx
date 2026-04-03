@@ -5,6 +5,7 @@ import Nav from '@/components/Nav'
 import NewsletterCTA from '@/components/NewsletterCTA'
 import Footer from '@/components/Footer'
 import { posts } from '@/data/posts'
+import { allSeries } from '@/data/series'
 
 const pillars = ['All', 'The Broken System', "Operator's Edge", 'Red Pill Philosophy', 'Transition Blueprint']
 
@@ -80,6 +81,67 @@ export default function IntelPage() {
             </button>
           ))}
         </div>
+
+        {/* Series spotlight */}
+        {(activeFilter === 'All' || activeFilter === 'The Broken System') && allSeries.length > 0 && (
+          <div style={{ padding: '0 48px 40px' }}>
+            <div style={{
+              border: '1px solid rgba(208,2,27,0.35)',
+              borderRadius: '4px',
+              overflow: 'hidden',
+              background: 'rgba(208,2,27,0.04)',
+            }}>
+              <div style={{ padding: '6px 20px', background: 'rgba(208,2,27,0.18)', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--white)' }}>// Active Series</span>
+              </div>
+              {allSeries.map((series) => {
+                const publishedCount = series.posts.filter((p) => p.published).length
+                const latestPost = series.posts.filter((p) => p.published).at(-1)
+                return (
+                  <Link key={series.slug} to={`/intel/series/${series.slug}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
+                    <div style={{ padding: '28px 32px', display: 'grid', gridTemplateColumns: '1fr auto', gap: '24px', alignItems: 'center', transition: 'background 0.2s' }}
+                      onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(208,2,27,0.06)')}
+                      onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                    >
+                      <div>
+                        <div style={{ fontFamily: 'var(--mono)', fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--red)', marginBottom: '8px' }}>
+                          {series.coverTag}
+                        </div>
+                        <div style={{ fontSize: '22px', fontWeight: 700, letterSpacing: '-0.01em', lineHeight: 1.2, marginBottom: '8px' }}>
+                          {series.title}
+                        </div>
+                        <div style={{ fontSize: '14px', color: 'var(--white-dim)', lineHeight: 1.6, maxWidth: '640px', marginBottom: '14px' }}>
+                          {series.description}
+                        </div>
+                        <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+                          {series.posts.map((post) => (
+                            <div key={post.slug} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                              <div style={{ width: '24px', height: '3px', borderRadius: '2px', background: post.published ? 'var(--red)' : 'rgba(255,255,255,0.15)' }} />
+                              <span style={{ fontFamily: 'var(--mono)', fontSize: '10px', color: post.published ? 'var(--white-dim)' : 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                                Pt {post.part}
+                              </span>
+                            </div>
+                          ))}
+                          <span style={{ fontFamily: 'var(--mono)', fontSize: '10px', color: 'var(--white-dim)', letterSpacing: '0.08em' }}>
+                            {publishedCount}/{series.posts.length} published
+                          </span>
+                          {latestPost && (
+                            <span style={{ fontFamily: 'var(--mono)', fontSize: '10px', color: 'var(--white-dim)' }}>
+                              Latest: {latestPost.date}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', letterSpacing: '0.1em', color: 'var(--red)', whiteSpace: 'nowrap', textTransform: 'uppercase' }}>
+                        Read Series →
+                      </div>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Post list */}
         <div
