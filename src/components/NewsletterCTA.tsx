@@ -5,13 +5,13 @@ import { useIsMobile } from '@/hooks/useIsMobile'
 
 export default function NewsletterCTA() {
   const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'invalid' | 'error'>('idle')
   const isMobile = useIsMobile()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/
-    if (!emailRegex.test(email)) { setStatus('error'); return }
+    if (!emailRegex.test(email)) { setStatus('invalid'); return }
     setStatus('loading')
     try {
       const res = await fetch('/api/subscribe', {
@@ -62,13 +62,13 @@ export default function NewsletterCTA() {
           }}>
             <Input
               type="email" placeholder="your@email.com" value={email}
-              onChange={(e) => { setEmail(e.target.value); if (status === 'error') setStatus('idle') }}
+              onChange={(e) => { setEmail(e.target.value); if (status === 'invalid' || status === 'error') setStatus('idle') }}
               required aria-label="Email address"
               style={{
                 flex: 1,
                 borderRight: isMobile ? '1px solid var(--white-faint)' : 'none',
                 borderRadius: isMobile ? '2px' : '2px 0 0 2px',
-                borderColor: status === 'error' ? 'var(--red)' : undefined,
+                borderColor: status === 'invalid' ? 'var(--red)' : undefined,
               }}
             />
             <Button type="submit" variant="primary" disabled={status === 'loading'}
@@ -76,9 +76,14 @@ export default function NewsletterCTA() {
               {status === 'loading' ? '...' : 'Take the Red Pill'}
             </Button>
           </form>
-          {status === 'error' && (
+          {status === 'invalid' && (
             <div style={{ fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.1em', color: 'var(--red)', marginTop: '8px', textTransform: 'uppercase' }}>
               // Enter a valid email address
+            </div>
+          )}
+          {status === 'error' && (
+            <div style={{ fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.1em', color: 'var(--red)', marginTop: '8px', textTransform: 'uppercase' }}>
+              // Something went wrong — try again or email tom@taketheredpill.io
             </div>
           )}
           <div style={{ fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.1em', color: 'rgba(245,245,240,0.22)', marginTop: '16px', textTransform: 'uppercase' }}>

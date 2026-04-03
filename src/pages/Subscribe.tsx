@@ -15,12 +15,12 @@ const benefits = [
 
 export default function SubscribePage() {
   const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'invalid' | 'error'>('idle')
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/
-    if (!emailRegex.test(email)) { setStatus('error'); return }
+    if (!emailRegex.test(email)) { setStatus('invalid'); return }
     setStatus('loading')
     try {
       const res = await fetch('/api/subscribe', {
@@ -152,14 +152,14 @@ export default function SubscribePage() {
                   type="email"
                   placeholder="your@email.com"
                   value={email}
-                  onChange={(e) => { setEmail(e.target.value); if (status === 'error') setStatus('idle') }}
+                  onChange={(e) => { setEmail(e.target.value); if (status === 'invalid' || status === 'error') setStatus('idle') }}
                   required
                   aria-label="Email address"
                   style={{
                     flex: 1,
                     borderRight: 'none',
                     borderRadius: '2px 0 0 2px',
-                    borderColor: status === 'error' ? 'var(--red)' : undefined,
+                    borderColor: status === 'invalid' ? 'var(--red)' : undefined,
                   }}
                 />
                 <Button
@@ -171,17 +171,14 @@ export default function SubscribePage() {
                   {status === 'loading' ? '...' : 'Take the Red Pill →'}
                 </Button>
               </div>
-              {status === 'error' && (
-                <div
-                  style={{
-                    fontFamily: 'var(--mono)',
-                    fontSize: '10px',
-                    letterSpacing: '0.1em',
-                    color: 'var(--red)',
-                    textTransform: 'uppercase',
-                  }}
-                >
+              {status === 'invalid' && (
+                <div style={{ fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.1em', color: 'var(--red)', textTransform: 'uppercase' }}>
                   // Enter a valid email address
+                </div>
+              )}
+              {status === 'error' && (
+                <div style={{ fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.1em', color: 'var(--red)', textTransform: 'uppercase' }}>
+                  // Something went wrong — try again or email tom@taketheredpill.io
                 </div>
               )}
               <div
