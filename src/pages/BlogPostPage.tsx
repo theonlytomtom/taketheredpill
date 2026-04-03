@@ -110,7 +110,7 @@ export default function BlogPostPage() {
         <div style={{ maxWidth: '740px', margin: '0 auto', padding: isMobile ? '48px 20px 0' : '64px 48px 0' }}>
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '36px' }}>
             <p style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--white-dim)', lineHeight: 1.7, fontStyle: 'italic' }}>
-              Tom Hansen is an active-duty US Army officer, MOS 70D Health Services Informatician, and the Army's Palantir SME in the medical domain. He writes at taketheredpill.io.
+              Tom Hansen has 16 years of technical and operational experience with health information systems and is a Palantir SME in the medical domain. Views expressed are his own and do not represent any organization or government entity. He writes at taketheredpill.io.
             </p>
           </div>
         </div>

@@ -31,9 +31,9 @@ export const posts: Post[] = [
   {
     slug: 'building-business-in-uniform',
     tag: '// Transition Blueprint',
-    title: 'Building a Business in Uniform: Month One',
+    title: 'Building a Business While Inside the Machine: Month One',
     excerpt:
-      "What it looks like to start an entrepreneurial journey while still on active duty — and why waiting until retirement is the wrong play.",
+      "What it looks like to start an entrepreneurial journey while working inside a large institution — and why waiting for the perfect exit is the wrong play.",
     date: 'Mar 11, 2026',
     readTime: '5 min read',
   },

@@ -9,14 +9,14 @@ const timeline = [
   { year: '2026', event: 'Building taketheredpill.io — brand, audience, and MVP product' },
   { year: '2027', event: 'Google Health Technical Product Manager — enterprise AI/data exposure' },
   { year: '2028', event: 'MVP product live. Early revenue. Community growing.' },
-  { year: '2030', event: 'Army retirement. Business already running. Freedom to choose.' },
+  { year: '2030', event: 'Business fully operational. Multiple revenue streams. Freedom to choose.' },
 ]
 
 const creds = [
-  { strong: 'MOS 70D', rest: ' — Health Services Informatician' },
-  { strong: 'Army SME', rest: ' — Palantir AIP/Foundry, Medical Domain' },
+  { strong: '16 Years', rest: ' — Technical operational health information systems' },
+  { strong: 'Palantir SME', rest: ' — AIP/Foundry, Medical Domain' },
   { strong: 'Expertise', rest: ' — BATDOK, BATTAK, Class VIII / Blood Supply Data, C2 integration' },
-  { strong: '20+ years', rest: ' — Operational medicine, data architecture, AI integration' },
+  { strong: 'Domain', rest: ' — Operational medicine, data architecture, AI integration' },
   { strong: 'Target', rest: ' — Google Health TPM (AUG 2026), Palantir, Rune Technologies' },
 ]
 
@@ -87,7 +87,7 @@ export default function AboutPage() {
                   lineHeight: 1.5,
                 }}
               >
-                US ARMY<br />MOS 70D<br />ACTIVE DUTY
+16 YRS<br />OPMED<br />DATA
               </div>
             </div>
           </div>
@@ -117,18 +117,21 @@ export default function AboutPage() {
                 fontWeight: 300,
               }}
             >
-              Active-duty US Army officer. MOS 70D Health Services Informatician.
-              The Army's Palantir SME in the medical domain. 20+ years of operational
-              experience at the intersection of military medicine, data architecture, and
-              AI integration.
+              16 years of technical and operational experience with health information systems.
+              Palantir SME in the medical domain. Working at the intersection of operational
+              medicine, data architecture, and AI integration.
               <br /><br />
               I've watched institutions sit on data that could save lives. I've deployed
-              the technology that works. And I've spent two decades learning exactly why
+              the technology that works. And I've spent 16 years learning exactly why
               the gap between "possible" and "done" is almost always a choice — not a
               limitation.
               <br /><br />
-              Building taketheredpill.io while still in uniform — because waiting until
-              retirement is the wrong play.
+              Building taketheredpill.io because the problems I've watched go unsolved
+              long enough.
+              <br /><br />
+              <em style={{ fontStyle: 'normal', fontSize: '13px', color: 'rgba(245,245,240,0.45)', lineHeight: 1.7, display: 'block' }}>
+                Views expressed are my own and do not represent any organization or government entity.
+              </em>
             </p>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
               <Button asChild variant="primary">
@@ -181,6 +184,43 @@ export default function AboutPage() {
                 <div style={{ fontSize: '15px', color: 'var(--white-dim)', lineHeight: 1.5 }}>
                   <strong style={{ color: 'var(--white)', fontWeight: 600 }}>{strong}</strong>
                   {rest}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Education */}
+        <section
+          style={{
+            padding: '80px 48px',
+            borderTop: '1px solid var(--white-faint)',
+          }}
+        >
+          <div className="section-label" style={{ marginBottom: '48px' }}>
+            Education
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', background: 'var(--white-faint)', maxWidth: '800px' }}>
+            {[
+              { degree: 'BS, Computer Science', school: 'United States Military Academy, West Point' },
+              { degree: 'Dual MHA / MBA', school: 'Baylor University' },
+              { degree: 'Chief Data Officer Certification', school: 'National Defense University — In Progress' },
+              { degree: 'CompTIA Security+', school: 'Certified' },
+            ].map(({ degree, school }) => (
+              <div
+                key={degree}
+                style={{
+                  background: 'var(--bg)',
+                  padding: '24px 32px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '16px',
+                }}
+              >
+                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--red)', flexShrink: 0, marginTop: '7px' }} />
+                <div>
+                  <div style={{ fontSize: '15px', color: 'var(--white)', fontWeight: 600, marginBottom: '4px' }}>{degree}</div>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', letterSpacing: '0.08em', color: 'var(--white-dim)', textTransform: 'uppercase' }}>{school}</div>
                 </div>
               </div>
             ))}

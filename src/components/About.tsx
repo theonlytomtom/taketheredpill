@@ -3,10 +3,10 @@ import { Button } from '@/components/ui/button'
 import { useIsMobile } from '@/hooks/useIsMobile'
 
 const creds = [
-  { strong: 'Army SME', rest: ' — Palantir AIP/Foundry, Health Domain' },
-  { strong: 'Technical PM', rest: ' — Google Health (AUG 2026)' },
+  { strong: '16 Years', rest: ' — Operational health information systems' },
+  { strong: 'Palantir SME', rest: ' — AIP/Foundry, Medical Domain' },
   { strong: 'Expertise', rest: ' — BATDOK, BATTAK, Class VIII / Blood Supply Data' },
-  { strong: 'Mission', rest: ' — Building toward a post-Army business before the exit' },
+  { strong: 'Mission', rest: ' — Connecting the data that institutions leave disconnected' },
 ]
 
 export default function About() {
@@ -52,7 +52,7 @@ export default function About() {
         </div>
         <div style={{ position: 'absolute', bottom: '-16px', right: '-16px', background: 'var(--red)', padding: '16px 20px', borderRadius: '2px' }}>
           <div style={{ fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#fff', lineHeight: 1.5 }}>
-            US ARMY<br />MOS 70D<br />ACTIVE DUTY
+16 YRS<br />OPMED<br />DATA
           </div>
         </div>
       </div>
@@ -65,9 +65,12 @@ export default function About() {
         </h2>
         <p style={{ fontSize: '16px', color: 'var(--white-dim)', lineHeight: 1.75, fontWeight: 300 }}>
           <strong style={{ color: 'var(--white)', fontWeight: 500 }}>Tom Hansen.</strong>{' '}
-          Active-duty US Army officer. MOS 70D Health Services Informatician. The Army's Palantir SME in the medical domain. 20+ years at the intersection of military medicine, data architecture, and AI integration.
+          <strong style={{ color: 'var(--white)', fontWeight: 500 }}>Tom Hansen.</strong>{' '}
+          16 years of technical and operational experience with health information systems. Palantir SME in the medical domain. Working at the intersection of operational medicine, data architecture, and AI integration.
           <br /><br />
           I've watched institutions sit on data that could save lives. I've deployed the technology that works. The gap between "possible" and "done" is almost always a choice — not a limitation.
+          <br /><br />
+          <em style={{ color: 'var(--white-dim)', fontSize: '13px', fontStyle: 'normal' }}>Views expressed are my own and do not represent any organization or government entity.</em>
         </p>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {creds.map(({ strong, rest }) => (
