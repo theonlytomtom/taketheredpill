@@ -3,6 +3,7 @@ import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
 import Manifesto from '@/components/Manifesto'
 import IntelGrid from '@/components/IntelGrid'
+import SeriesSpotlight from '@/components/SeriesSpotlight'
 import About from '@/components/About'
 import NewsletterCTA from '@/components/NewsletterCTA'
 import Footer from '@/components/Footer'
@@ -18,6 +19,7 @@ export default function Home() {
         <Manifesto />
         <div className="section-divider" />
         <IntelGrid />
+        <SeriesSpotlight />
         <About />
         <NewsletterCTA />
       </main>

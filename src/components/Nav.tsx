@@ -13,6 +13,7 @@ const PillIcon = () => (
 
 const navItems = [
   { to: '/intel', label: 'Intel' },
+  { to: '/intel/series/joint-opmed-ontology', label: 'Series' },
   { to: '/products', label: 'Products' },
   { to: '/#mission', label: 'The Mission' },
   { to: '/about', label: 'About' },
