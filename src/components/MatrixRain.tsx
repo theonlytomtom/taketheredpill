@@ -37,31 +37,24 @@ export default function MatrixRain() {
         }
         drops[i]++
       }
-
-      animationId = requestAnimationFrame(draw)
     }
 
     resize()
     window.addEventListener('resize', resize)
 
-    // Run at ~20fps (not 60fps) — subtle effect, not a screensaver
+    // Run at ~20fps — subtle background effect, not a screensaver
     let lastTime = 0
     const throttledDraw = (timestamp: number) => {
       if (timestamp - lastTime > 50) {
         draw()
         lastTime = timestamp
-      } else {
-        animationId = requestAnimationFrame(throttledDraw)
       }
+      animationId = requestAnimationFrame(throttledDraw)
     }
 
-    // Start immediately with simple setInterval for consistent frame rate
-    const interval = setInterval(() => {
-      if (ctx) draw()
-    }, 50)
+    animationId = requestAnimationFrame(throttledDraw)
 
     return () => {
-      clearInterval(interval)
       cancelAnimationFrame(animationId)
       window.removeEventListener('resize', resize)
     }
